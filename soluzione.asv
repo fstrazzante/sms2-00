@@ -95,16 +95,19 @@ a08_beta_hat=[beta_hat];
 
 %Domanda 2
 %Manualmente formula p15 regress_lin
-d_res = sum(r.^2);
-s2= d_res/(size(data,1)-size(beta_hat,1));
+d_res = sum(r.^2)
+s2= d_res/(size(data,1)-size(beta_hat,1))
 
 %https://it.mathworks.com/matlabcentral/answers/135229-in-the-regress-function-what-is-the-estimate-of-the-error-variance-returned-within-stats
 a09_sigma2_eps=[stats(4)];
 
 %Domanda 3
-%Manualmente formula p21
-y=beta_hat(1)+beta_hat(2)*10+beta_hat(3)*20; 
-%da completare
+data(50,1)=10;
+data(50,2)=20;
+X=[ones(50,1) data(:,[1 2])];
+data(50,3)=beta_hat(1)+beta_hat(2)*10+beta_hat(3)*20;
+Y=data(:,[3]);
+[beta_hat,bint,r,rint,stats] = regress(Y,X);
 a10_ci=[]; %vettore 2x1
 
 %Domanda 4
