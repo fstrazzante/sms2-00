@@ -50,6 +50,9 @@ end
 
 rmse_wind = sqrt(1/size(data,1) * rmse_wind);
 
+%oppure con fitlm
+f_31 = fitlm(data(:,1),data(:,3))
+
 a04_rmse_wind=[rmse_wind];
 
 %rmse wind and temperature
@@ -96,16 +99,18 @@ a08_beta_hat=[beta_hat];
 %Domanda 2
 %Manualmente formula p15 regress_lin
 d_res = sum(r.^2);
-s2= d_res/(size(data,1)-size(beta_hat,1));
+degrees_of_freedom = (size(data,1)-size(beta_hat,1));
+s2= d_res/degrees_of_freedom;
 
 %https://it.mathworks.com/matlabcentral/answers/135229-in-the-regress-function-what-is-the-estimate-of-the-error-variance-returned-within-stats
-a09_sigma2_eps=[stats(4)];
+%s2=stat(4);
+a09_sigma2_eps=[s2];
 
 %Domanda 3
 %Manualmente formula p21
-y=beta_hat(1)+beta_hat(2)*10+beta_hat(3)*20; 
-%da completare
-a10_ci=[]; %vettore 2x1
+s=sqrt(s2);
+y=beta_hat(1)+beta_hat(2)*10+beta_hat(3)*20;
+a10_ci=[y+[1 -1]*tinv(0.05, degrees_of_freedom)*s*sqrt(1+[1 10 20]*inv(X'*X)*[1 10 20]')]; %vettore 2x1
 
 %Domanda 4
 %Inserire il valore 1 in caso di risposta negativa e 2 in caso di
