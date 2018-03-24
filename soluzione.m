@@ -51,7 +51,7 @@ end
 rmse_wind = sqrt(1/size(data,1) * rmse_wind);
 
 %oppure con fitlm
-f_31 = fitlm(data(:,1),data(:,3))
+f_31 = fitlm(data(:,1),data(:,3));
 
 a04_rmse_wind=[rmse_wind];
 
@@ -110,11 +110,11 @@ a09_sigma2_eps=[s2];
 %Manualmente formula p21
 s=sqrt(s2);
 y=beta_hat(1)+beta_hat(2)*10+beta_hat(3)*20;
-a10_ci=[y+[1 -1]*tinv(0.05, degrees_of_freedom)*s*sqrt(1+[1 10 20]*inv(X'*X)*[1 10 20]')]; %vettore 2x1
+a10_ci=[y+[1 -1]*tinv(0.05/2, degrees_of_freedom)*s*sqrt(1+[1 10 20]*inv(X'*X)*[1 10 20]')]; %vettore 2x1
 
 %Domanda 4
 %Inserire il valore 1 in caso di risposta negativa e 2 in caso di
 %risposta positiva
-a11=[];
+a11=[2];
 
 save(['SMS2_prova0_',num2str(matricola),'.mat']);
